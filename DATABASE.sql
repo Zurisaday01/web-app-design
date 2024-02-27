@@ -1,4 +1,6 @@
-```sql
+
+-- CREATE DATABASE BASE_DE_DATOS_SEMESTRE;
+
 USE BASE_DE_DATOS_SEMESTRE;
 
 CREATE TABLE Sesiones_Productos (
@@ -122,5 +124,3 @@ CREATE TABLE Usuarios (
 	Eliminado_Por INTEGER
 );
 
-
-```
