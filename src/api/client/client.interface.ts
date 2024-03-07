@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { IAddress } from './address.interface';
+import { IAddress } from '../adress/address.interface';
 
 export interface IClient extends Document {
 	name: string;
