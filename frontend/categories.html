@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Alata&family=Josefin+Sans:wght@300;600&display=swap"
+			rel="stylesheet" />
+		<link href="./css/normalized.css" rel="stylesheet" />
+		<link href="./css/styles.css" rel="stylesheet" />
+		<script src="./js/app.js" async></script>
+		<title>CRM Project</title>
+	</head>
+	<body class="container">
+		<aside class="sidebar">
+			<h2>
+				<a href="./index.html">Dashboard</a>
+			</h2>
+			<ul>
+				<li><a href="./users.html">Users</a></li>
+				<li><a href="./addresses.html">Addresses</a></li>
+				<li><a href="./genders.html">Genders</a></li>
+				<li><a href="./categories.html">Categories</a></li>
+				<li><a href="./products.html">Products</a></li>
+			</ul>
+		</aside>
+
+		<main class="main">
+			<header>
+				<h1>Customer Relationship Management</h1>
+			</header>
+
+			<section id="categories">
+				<h2>Categories</h2>
+				<div class="table">
+					<table id="categoryTable">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Name</th>
+								<th>Creation Date</th>
+								<th>Created By</th>
+								<th>Update Date</th>
+								<th>Updated By</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Category data will be inserted here dynamically -->
+						</tbody>
+					</table>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<p>&copy; 2024 Zurisaday Espadas M.</p>
+		</footer>
+		<script>
+			fetch('http://localhost:3000/api/categories')
+				.then(response => response.json())
+				.then(data => {
+					let tableBody = document.querySelector('#categoryTable tbody');
+
+					// Clear the table content before adding new data
+					tableBody.innerHTML = '';
+
+					// Iterate over the data and add rows to the table
+					data.forEach(category => {
+						let row = document.createElement('tr');
+
+						// Create cells for each category property
+						let idCell = document.createElement('td');
+						idCell.textContent = category.category_id;
+						row.appendChild(idCell);
+
+						let nameCell = document.createElement('td');
+						nameCell.textContent = category.name;
+						row.appendChild(nameCell);
+
+						let creationDateCell = document.createElement('td');
+						creationDateCell.textContent = category.creation_date;
+						row.appendChild(creationDateCell);
+
+						let createdByCell = document.createElement('td');
+						createdByCell.textContent = category.created_by;
+						row.appendChild(createdByCell);
+
+						let updateDateCell = document.createElement('td');
+						updateDateCell.textContent = category.update_date;
+						row.appendChild(updateDateCell);
+
+						let updatedByCell = document.createElement('td');
+						updatedByCell.textContent = category.updated_by;
+						row.appendChild(updatedByCell);
+
+						// Add the row to the table
+						tableBody.appendChild(row);
+					});
+				})
+				.catch(error => {
+					console.error('Error fetching data:', error);
+				});
+		</script>
+	</body>
+</html>

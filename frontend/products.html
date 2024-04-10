@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Alata&family=Josefin+Sans:wght@300;600&display=swap"
+			rel="stylesheet" />
+		<link href="./css/normalized.css" rel="stylesheet" />
+		<link href="./css/styles.css" rel="stylesheet" />
+		<script src="./js/app.js" async></script>
+		<title>CRM Project</title>
+	</head>
+	<body class="container">
+		<aside class="sidebar">
+			<h2>
+				<a href="./index.html">Dashboard</a>
+			</h2>
+			<ul>
+				<li><a href="./users.html">Users</a></li>
+				<li><a href="./addresses.html">Addresses</a></li>
+				<li><a href="./genders.html">Genders</a></li>
+				<li><a href="./categories.html">Categories</a></li>
+				<li><a href="./products.html">Products</a></li>
+			</ul>
+		</aside>
+
+		<main class="main">
+			<header>
+				<h1>Customer Relationship Management</h1>
+			</header>
+
+			<section id="products">
+				<h2>Products</h2>
+				<div class="table">
+					<table id="productTable">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Description</th>
+								<th>Price</th>
+								<th>Category</th>
+								<th>Creation Date</th>
+								<th>Created By</th>
+								<th>Update Date</th>
+								<th>Updated By</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Product data will be inserted here dynamically -->
+						</tbody>
+					</table>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<p>&copy; 2024 Zurisaday Espadas M.</p>
+		</footer>
+		<script>
+			fetch('http://localhost:3000/api/products')
+				.then(response => response.json())
+				.then(data => {
+					let tableBody = document.querySelector('#productTable tbody');
+
+					// Clear the table content before adding new data
+					tableBody.innerHTML = '';
+
+					// Iterate over the data and add rows to the table
+					data.forEach(product => {
+						let row = document.createElement('tr');
+
+						// Create cells for each product property
+						let idCell = document.createElement('td');
+						idCell.textContent = product.product_id;
+						row.appendChild(idCell);
+
+						let descriptionCell = document.createElement('td');
+						descriptionCell.textContent = product.description;
+						row.appendChild(descriptionCell);
+
+						let priceCell = document.createElement('td');
+						priceCell.textContent = product.price.toFixed(2); // Format price to 2 decimal places
+						row.appendChild(priceCell);
+
+						// You may need to fetch the category name based on the fk_category ID
+						// For simplicity, I'll display the category ID here
+						let categoryCell = document.createElement('td');
+						categoryCell.textContent = product.fk_category;
+						row.appendChild(categoryCell);
+
+						let creationDateCell = document.createElement('td');
+						creationDateCell.textContent = product.creation_date;
+						row.appendChild(creationDateCell);
+
+						let createdByCell = document.createElement('td');
+						createdByCell.textContent = product.created_by;
+						row.appendChild(createdByCell);
+
+						let updateDateCell = document.createElement('td');
+						updateDateCell.textContent = product.update_date;
+						row.appendChild(updateDateCell);
+
+						let updatedByCell = document.createElement('td');
+						updatedByCell.textContent = product.updated_by;
+						row.appendChild(updatedByCell);
+
+						// Add the row to the table
+						tableBody.appendChild(row);
+					});
+				})
+				.catch(error => {
+					console.error('Error fetching data:', error);
+				});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Alata&family=Josefin+Sans:wght@300;600&display=swap"
+			rel="stylesheet" />
+		<link href="./css/normalized.css" rel="stylesheet" />
+		<link href="./css/styles.css" rel="stylesheet" />
+		<script src="./js/app.js" async></script>
+		<title>CRM Project</title>
+	</head>
+	<body class="container">
+		<aside class="sidebar">
+			<h2>
+				<a href="./index.html">Dashboard</a>
+			</h2>
+			<ul>
+				<li><a href="./users.html">Users</a></li>
+				<li><a href="./addresses.html">Addresses</a></li>
+				<li><a href="./genders.html">Genders</a></li>
+				<li><a href="./categories.html">Categories</a></li>
+				<li><a href="./products.html">Products</a></li>
+			</ul>
+		</aside>
+
+		<main class="main">
+			<header>
+				<h1>Customer Relationship Management</h1>
+			</header>
+
+			<section id="addresses">
+				<h2>Addresses</h2>
+				<div class="table">
+					<table id="addressTable">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Name</th>
+								<th>Postal Code</th>
+								<th>Street</th>
+								<th>Neighborhood</th>
+								<th>Exterior Number</th>
+								<th>Interior Number</th>
+								<th>City</th>
+								<th>Creation Date</th>
+								<th>Created By</th>
+								<th>Update Date</th>
+								<th>Updated By</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Address data will be inserted here dynamically -->
+						</tbody>
+					</table>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<p>&copy; 2024 Zurisaday Espadas M.</p>
+		</footer>
+		<script>
+			fetch('http://localhost:3000/api/addresses')
+				.then(response => response.json())
+				.then(data => {
+					let tableBody = document.querySelector('#addressTable tbody');
+
+					// Clear the table content before adding new data
+					tableBody.innerHTML = '';
+
+					// Iterate over the data and add rows to the table
+					data.forEach(address => {
+						let row = document.createElement('tr');
+
+						// Create cells for each address property
+						let idCell = document.createElement('td');
+						idCell.textContent = address.address_id;
+						row.appendChild(idCell);
+
+						let nameCell = document.createElement('td');
+						nameCell.textContent = address.name;
+						row.appendChild(nameCell);
+
+						let postalCodeCell = document.createElement('td');
+						postalCodeCell.textContent = address.postal_code;
+						row.appendChild(postalCodeCell);
+
+						let streetCell = document.createElement('td');
+						streetCell.textContent = address.street;
+						row.appendChild(streetCell);
+
+						let neighborhoodCell = document.createElement('td');
+						neighborhoodCell.textContent = address.neighborhood;
+						row.appendChild(neighborhoodCell);
+
+						let exteriorNumberCell = document.createElement('td');
+						exteriorNumberCell.textContent = address.exterior_number;
+						row.appendChild(exteriorNumberCell);
+
+						let interiorNumberCell = document.createElement('td');
+						interiorNumberCell.textContent = address.interior_number
+							? address.interior_number
+							: '';
+						row.appendChild(interiorNumberCell);
+
+						let cityCell = document.createElement('td');
+						cityCell.textContent = address.city;
+						row.appendChild(cityCell);
+
+						let creationDateCell = document.createElement('td');
+						creationDateCell.textContent = address.creation_date;
+						row.appendChild(creationDateCell);
+
+						let createdByCell = document.createElement('td');
+						createdByCell.textContent = address.created_by;
+						row.appendChild(createdByCell);
+
+						let updateDateCell = document.createElement('td');
+						updateDateCell.textContent = address.update_date;
+						row.appendChild(updateDateCell);
+
+						let updatedByCell = document.createElement('td');
+						updatedByCell.textContent = address.updated_by;
+						row.appendChild(updatedByCell);
+
+						// Add the row to the table
+						tableBody.appendChild(row);
+					});
+				})
+				.catch(error => {
+					console.error('Error fetching data:', error);
+				});
+		</script>
+	</body>
+</html>
