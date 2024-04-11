@@ -2,26 +2,10 @@ import { OkPacket, ResultSetHeader, RowDataPacket } from 'mysql2';
 import connection from '../../db/mysqlConnection';
 import { Address } from './address.interface';
 
-interface UpdateAddressData {
-	name: string;
-	postal_code: number;
-	street: string;
-	neighborhood: string;
-	exterior_number: string;
-	interior_number: string;
-	city: string;
-	creation_date: Date;
-	update_date: Date;
-	created_by: number;
-	updated_by: number;
-	deletion_date: Date | null;
-	deleted_by: number | null;
-}
-
 export class AddressService {
 	static async getAddressById(addressId: string): Promise<Address | undefined> {
 		return new Promise<Address>((resolve, reject) => {
-			const query = `SELECT * FROM address WHERE address_id = ?`;
+			const query = `SELECT * FROM addresses WHERE address_id = ?`;
 			connection.query<Address[] & RowDataPacket[][]>(
 				query,
 				[addressId],
@@ -71,7 +55,7 @@ export class AddressService {
 
 	static async updateAddress(
 		addressId: string,
-		addressData: Partial<UpdateAddressData>
+		addressData: Partial<Address>
 	): Promise<ResultSetHeader> {
 		const setValues = [];
 		const values: (string | number | Date | null)[] = [];

@@ -43,6 +43,7 @@
 								<th>Created Date</th>
 								<th>Created By</th>
 								<th>Email</th>
+								<th>Actions</th>
 								<!-- Puedes agregar más columnas si es necesario -->
 							</tr>
 						</thead>
@@ -88,6 +89,24 @@
 						let emailCell = document.createElement('td');
 						emailCell.textContent = user.email ? user.email : '';
 
+						// Add action buttons for delete and update
+						let actionsCell = document.createElement('td');
+						actionsCell.classList.add('action-cell'); // Add class name to the actions cell
+						let deleteButton = document.createElement('button');
+						deleteButton.textContent = 'Delete';
+						deleteButton.onclick = function () {
+							// Implement delete functionality here
+							console.log('Delete button clicked for user:', user.user_id);
+						};
+						let updateButton = document.createElement('button');
+						updateButton.textContent = 'Update';
+						updateButton.onclick = function () {
+							// Implement update functionality here
+							console.log('Update button clicked for user:', user.user_id);
+						};
+						actionsCell.appendChild(deleteButton);
+						actionsCell.appendChild(updateButton);
+
 						// Add the cells to the row
 						fila.appendChild(idCell);
 						fila.appendChild(nameCell);
@@ -95,6 +114,7 @@
 						fila.appendChild(createdDateCell);
 						fila.appendChild(createdByCell);
 						fila.appendChild(emailCell);
+						fila.appendChild(actionsCell);
 
 						// Add the row to the table
 						tablaBody.appendChild(fila);

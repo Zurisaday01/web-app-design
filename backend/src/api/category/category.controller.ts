@@ -25,6 +25,18 @@ export class categoryController {
 
 	static async createCategory(req: Request, res: Response) {
 		try {
+			// Get the current date and time
+			const currentDate = new Date();
+
+			// Format the datetime value to 'YYYY-MM-DD HH:mm:ss' format
+			const formattedDate = currentDate
+				.toISOString()
+				.slice(0, 19)
+				.replace('T', ' ');
+
+			// Set the creation date and update date to the formatted datetime value
+			req.body.creation_date = formattedDate;
+			req.body.update_date = formattedDate;
 			const newCategory = await CategoryService.createCategory(req.body);
 			res.json(newCategory);
 		} catch (error) {

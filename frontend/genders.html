@@ -42,6 +42,7 @@
 								<th>Created By</th>
 								<th>Update Date</th>
 								<th>Updated By</th>
+								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -91,6 +92,31 @@
 						let updatedByCell = document.createElement('td');
 						updatedByCell.textContent = gender.updated_by;
 						row.appendChild(updatedByCell);
+
+						// Add action buttons for delete and update
+						let actionsCell = document.createElement('td');
+						actionsCell.classList.add('action-cell'); // Add class name to the actions cell
+						let deleteButton = document.createElement('button');
+						deleteButton.textContent = 'Delete';
+						deleteButton.onclick = function () {
+							// Implement delete functionality here
+							console.log(
+								'Delete button clicked for gender:',
+								gender.gender_id
+							);
+						};
+						let updateButton = document.createElement('button');
+						updateButton.textContent = 'Update';
+						updateButton.onclick = function () {
+							// Implement update functionality here
+							console.log(
+								'Update button clicked for gender:',
+								gender.gender_id
+							);
+						};
+						actionsCell.appendChild(deleteButton);
+						actionsCell.appendChild(updateButton);
+						row.appendChild(actionsCell);
 
 						// Add the row to the table
 						tableBody.appendChild(row);
